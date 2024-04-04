@@ -1,0 +1,132 @@
+**KRAM Assistant**
+    Proposal & Blueprint
+
+What is it?
+===========
+
+**This is a voice assistant that will automatically just work with any custom 
+feature script you give it.**
+
+Demos 
+-----
+[ ] [Play music](#demos/playmusic)
+[ ] [Summarize work email](#demos/summarizeworkemail)  
+[ ] [Reminder to leave for trip on time](#demos/remindertoleavefortripontime)
+[ ] [Todo reminder helper](#demos/todoreminderhelper)
+
+<small>
+    The checked demos have are further described in the [demos section](#demos)
+</small>
+
+How it might work?
+------------------
+
+********************************************************************************
+*                                                                               
+*  Speech Interface <--.                                                     
+*               \       \                  External Script: Play music      
+*                '--> Assistant ------>            (Description)             
+*                      /                                                     
+*                     /                    External Script: Summarize emails
+*                    v                             (Description)
+*              Visual Interface                                              
+*                                          External Script: Reminder to leave
+*                                                  (Description)
+*                                          ...                                 
+*                                          ...                                 
+*                                          ...                                 
+*                                          ...                                 
+*                                          ...                                 
+*                                          ...                                 
+*                                                                               
+********************************************************************************
+
+### Speech Interface
+
+This component is responsible for parsing verbal speech into text and text back 
+into verbal speech. This will include managing the connection to the 
+microphone/speaker and anything else needed. Think of it like a black box where 
+verbal speech goes in text comes out and text goes in verbal speech comes out.
+
+**Tools that might be relevant**
+
+- aplay
+- vosk
+- speech-recognizer
+- arecord
+
+
+### Assistant
+
+This is the intelligence of the system, but it need only be intelligent enough 
+match a request with a description of action. There are a few things the 
+assistant should be capable of. 
+
+1. It should be able to hold a semi decent conversation
+2. It should be able to identify requests/commands and match that 
+    request/command against a list of possible actions (each action has a 
+    description of itself)
+
+If the input to the assistant is something that can be solved with a known 
+action, then trigger the action (External Script). If not then just respond like
+its a conversation.
+
+### External Scripts
+
+These are scripts that do things. They could be python, bash, perl, lua, 
+anything as long as its triggerable with a cli call. They have a natural 
+language description of what the script does. When the Assistant needs to do 
+something it uses this description to determine whether this script will do what
+is needed. If it will it will trigger this script.
+
+### Visual Interface
+
+Speech is slow and has a low bandwidth. Visuals are faster and can communicate a 
+lot more in a smaller package. 
+
+> "A picture is worth a thousand words. Yada yada yada"
+>   -- Someone Clever (Probably)
+
+The 
+![We don't want this](https://i.kym-cdn.com/entries/icons/original/000/022/747/Do_Something_meme_banner_imag.jpg height='200px' border="1")
+visual interface will be the systems means of 
+[backchannel](https://en.wikipedia.org/wiki/Backchannel_(linguistics) 
+communication. The visual interface should fill in the gap for when a user might go "Is this 
+thing working"
+<details>
+    <summary>I have a few thoughts this topic but I'd rather y'all get a chance
+        to think on this before being influenced by my thoughts
+    </summary>
+
+    - The system hosts a live reloading site that showcases the current state of 
+        the system. Anyone visiting the site can see the current state of the 
+        system.
+    - Condense the state of the system into a json and make it available 
+        at an endpoint. (REST/Websocket/Anything). Then we can make 
+        any sort of front end freely and independently. 
+            - App that sends push notifications on phone
+            - PC utils that show status in task bar notifications
+            - Hardware component that lights up LEDs to indicate status
+</details>
+
+
+
+
+Demos
+=====
+
+Play music
+----------
+
+
+Summarize work email
+--------------------
+
+Reminder to leave for trip on time
+----------------------------------
+
+Todo reminder helper
+--------------------
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js" charset="utf-8"></script><script src="https://morgan3d.github.io/markdeep/latest/markdeep.min.js" charset="utf-8"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
